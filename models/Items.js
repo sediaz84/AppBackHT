@@ -11,7 +11,7 @@ const ItemsSchema = new mongoose.Schema({
         type: String
     },
     value: {
-        type: Integer
+        type: Number
     },
     broken: {
         type: Boolean
@@ -20,7 +20,7 @@ const ItemsSchema = new mongoose.Schema({
         type: Boolean
     },
     quantity: {
-        type: Integer
+        type: Number
     }
 },
 {
