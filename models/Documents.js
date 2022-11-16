@@ -7,7 +7,7 @@ const DocumentsSchema = new mongoose.Schema({
         default: Date.now
     },
     quantityItems:{
-        type: Integer
+        type: Number
     },
     addressEvent: {
         type: String
@@ -16,19 +16,19 @@ const DocumentsSchema = new mongoose.Schema({
         type: Date
     },
     descriptions: {
-        type: Text
+        type: String
     },
     amountUnity: {
-        type: Integer
+        type: Number
     },
     discount: {
-        type: Integer
+        type: Number
     },
     preAmount: {
-        type: Integer
+        type: Number
     },
     amountTotal: {
-        type: Integer
+        type: Number
     }
 },
 {

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ProvidersSchema = new mongoose.Schema({
     codeInt: {
-        type: Integer,
+        type: Number,
         unique: true
     },
     name: { 
@@ -17,7 +17,7 @@ const ProvidersSchema = new mongoose.Schema({
         allowNull: false
     },
     telephoneNumber: {
-        type: Integer
+        type: Number
         
     },
     address: {

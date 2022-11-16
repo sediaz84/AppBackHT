@@ -7,13 +7,10 @@ const UsersSchema = new mongoose.Schema({
     lastName: {
         type: String
     },
-    active: {
-        type: Boolean
-    },
     type: {
         type: String,
         enum: ["user", "admin"],
-        default: "users"
+        default: "user"
     },
     pass: {
         type: String
