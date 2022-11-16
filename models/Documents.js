@@ -6,6 +6,9 @@ const DocumentsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    numberDocument: {
+        type: Number
+    },
     quantityItems:{
         type: Number
     },
