@@ -6,16 +6,16 @@ const app = express()
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const { CORS_URL } = process.env
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 const jsonParser = bodyParser.json()
-const morga = require("morgan")
+const morgan = require("morgan")
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(bodyParser.json({limit: '50mb'}))
 app.use(cookieParser())
-app.use(morga('dev'))
+app.use(morgan('dev'))
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', CORS_URL);

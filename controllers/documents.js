@@ -15,43 +15,42 @@ const createDocuments = async (req, res) => {
 
     try {
         const { 
-            date, 
+            //date,
+            numberDocument, 
             quantityItems, 
             addressEvent, 
-            dateSend, 
+            dateSend,
+            dateReception, 
             descriptions,
             amountUnity,
             discount,
             preAmount,
-            amountTotal } = req.body
+            amountTotal,
+            user_id,
+            client_id,
+            items_id } = req.body
 
         const document = { 
-            date, 
+            //date,
+            numberDocument, 
             quantityItems, 
             addressEvent, 
             dateSend, 
+            dateReception,
             descriptions,
             amountUnity,
             discount,
             preAmount,
-            amountTotal
+            amountTotal,
+            user_id,
+            client_id,
+            items_id
         }     
         
-        if(
-            !date 
-            || !quantityItems
-            || !addressEvent
-            || !dateSend
-            || !descriptions
-            || !amountUnity
-            || !discount
-            || !preAmount
-            || !amountTotal
-            ) {
                 const newDocument = await documentsModel.create(document)
-
+                console.log(newDocument)
                 res.status(200).json(newDocument)
-            } 
+            //} 
 
     } catch (error) {
         res.status(400).send(error)
