@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
-const ClientSchema = new mongoose.Schema({
-    codeInt: {
+const ClientesSchema = new mongoose.Schema({
+    idClient: {
         type: Number,
         unique: true
     },
@@ -13,13 +14,15 @@ const ClientSchema = new mongoose.Schema({
     },
     nameCompany: {
         type: String,
-        unique: true,
         allowNull: false
     },
     telephoneNumber: {
         type: Number
     },
     address: {
+        type: String
+    },
+    city:{
         type: String
     },
     email:{
@@ -30,10 +33,16 @@ const ClientSchema = new mongoose.Schema({
     },
     notes: {
         type: String
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 }, { 
          timestamps: true
 
 })
 
-module.exports = mongoose.model("client", ClientSchema)
+ClientesSchema.plugin(mongooseDelete, {overrideMethods: "all"})
+
+module.exports = mongoose.model("clientes", ClientesSchema)

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const mongooseDelete = require('mongoose-delete');
+ 
 const UsersSchema = new mongoose.Schema({
     name: {
         type: String
@@ -8,13 +9,15 @@ const UsersSchema = new mongoose.Schema({
         type: String
     },
     type: {
-        type: String,
-        enum: ["user", "admin"],
+        type: ["user", "admin"],         
         default: "user"
+    },
+    userId: {
+        type: String
     },
     pass: {
         type: String
-    }
+    } 
 },
 {
     timestamps: true
