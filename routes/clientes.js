@@ -5,7 +5,7 @@ const authMiddleware = require('../middleware/session');
 const checkRol = require('../middleware/roles');
 
 
-router.get("/", authMiddleware, checkRol(["admin"]),  getClientes)
+router.get("/", getClientes) //router.get("/", authMiddleware, checkRol(["admin"]),  getClientes)
 router.post("/", createCliente)
 router.put("/:id", updateCliente)
 router.delete("/:id", deleteCliente)

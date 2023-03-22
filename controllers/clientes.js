@@ -1,20 +1,43 @@
 const { clientesModel } = require("../models");
 
 
+// const getClientes = async (req, res) => {
+//   try {
+//    // const user = req.user  // esta información viene del middleware de session, no informa que usuario es el que consume
+//     //console.log(req.user)
+    
+//     const { _id } = req.body;
+//     const allClients = await clientesModel.find({});
+
+//     if(_id){
+//         let searchClient = clientesModel.findById({_id: _id});
+//         res.status(200).json(searchClient);
+//     } else if(allClients.length > 0) {
+//       res.status(200).json(allClients); //{allClients, user}
+//     } else {
+//       res.status(400).send("No hay clientes");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const getClientes = async (req, res) => {
-  try {
-    const user = req.user  // esta información viene del middleware de session, no informa que usuario es el que consume
-    //console.log(req.user)
-    const allClients = await clientesModel.find({});
-    if (allClients.length > 0) {
-      res.status(200).json({allClients, user});
-    } else {
-      res.status(400).send("No hay clientes");
+    try {
+     // const user = req.user  // esta información viene del middleware de session, no informa que usuario es el que consume
+      //console.log(req.user)
+      
+      const allClients = await clientesModel.find({});
+  
+      if(allClients.length > 0) {
+        res.status(200).json(allClients); //{allClients, user}
+      } else {
+        res.status(400).send("No hay clientes");
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
 
 const createCliente = async (req, res) => {
 

@@ -2,15 +2,12 @@ const mongoose = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 const DocumentsSchema = new mongoose.Schema({
-    // date: {
-    //     type: Date,
-    //     default: Date.now
-    // },
     numberDocument: {
         type: Number
     },
     quantityItems:{
-        type: Number
+        type: Array,
+        default: []
     },
     addressEvent: {
         type: String
@@ -24,29 +21,17 @@ const DocumentsSchema = new mongoose.Schema({
     descriptions: {
         type: String
     },
-    amountUnity: {
-        type: Number
-    },
-    discount: {
-        type: Number
-    },
-    preAmount: {
-        type: Number
-    },
-    amountTotal: {
-        type: Number
-    },
-    // pending: {
-    //     type: Array,
-    //     default: []
-    // },  
+    state: {
+        type: Boolean,
+        default: false
+    },     
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"users"
     },
     client_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"client"
+        ref:"clientes"
     },
     items_id: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -69,7 +54,7 @@ DocumentsSchema.statics.findAllData = function () {
         },
         {
             $lookup: {
-                from: "clients",
+                from: "clientes",
                 localField: "client_id",
                 foreignField: "_id",
                 as: "client"
