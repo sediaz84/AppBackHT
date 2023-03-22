@@ -2,7 +2,7 @@ const { usersModel } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { encrypt, compare } = require( '../utils/handlePassword')
-const { tokenSign } = require('../utils/handleJwt');
+const { tokenSign } = require('../helpers/handleJwt');
 
 
 const getUsers = async (req, res) => {
