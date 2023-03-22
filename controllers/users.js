@@ -5,7 +5,7 @@ const { encrypt, compare } = require( '../utils/handlePassword')
 const { tokenSign } = require('../helpers/handleJwt');
 
 
-const getUsers = async (req, res) => {
+const getUsers = async (req, res) => { ///asdasda
     
     try {
         const allUsers = await usersModel.find({})
