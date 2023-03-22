@@ -1,4 +1,5 @@
 const { documentsModel } = require('../models');
+const { itemsModel } = require('../models');
 
 const getDocuments = async (req, res) => {
 
@@ -15,40 +16,45 @@ const createDocuments = async (req, res) => {
 
     try {
         const { 
-            //date,
             numberDocument, 
             quantityItems, 
             addressEvent, 
             dateSend,
             dateReception, 
             descriptions,
-            amountUnity,
-            discount,
-            preAmount,
-            amountTotal,
-            user_id,
+            //user_id,
             client_id,
-            items_id } = req.body
-
+            //items_id 
+        } = req.body
+            
+            
         const document = { 
-            //date,
             numberDocument, 
             quantityItems, 
             addressEvent, 
             dateSend, 
             dateReception,
             descriptions,
-            amountUnity,
-            discount,
-            preAmount,
-            amountTotal,
-            user_id,
+            //user_id,
             client_id,
-            items_id
+            //items_id
         }     
-        
-                const newDocument = await documentsModel.create(document)
-                console.log(newDocument)
+            //console.log(document.quantityItems.length)
+            if(document.quantityItems.length > 0) {
+                const stock = document.quantityItems.map(async (e) =>  { 
+                   const auxStock = await itemsModel.findById(e.item)                   
+                   //console.log(auxStock.stock)
+                    //console.log(e.quantity)
+                   auxStock.stock = (auxStock.stock - e.quantity)
+                   auxStock.save()
+                   console.log(auxStock)
+                })
+                
+            }
+
+            const newDocument = await documentsModel.create(document)
+
+                //console.log(newDocument)
                 res.status(200).json(newDocument)
             //} 
 

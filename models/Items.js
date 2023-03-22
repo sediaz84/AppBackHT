@@ -15,7 +15,10 @@ const ItemsSchema = new mongoose.Schema({
     },
     stock: {
         type: Number
-    }
+    },
+    stockTotal: {
+        type: Number
+    }    
 },
 {
     timestamps: true

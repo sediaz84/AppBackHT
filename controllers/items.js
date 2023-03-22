@@ -14,10 +14,10 @@ const getItems = async (req, res) => {
 const createItems = async (req, res) => {
     
     try {
-        const { idItem, name, value, stock } = req.body
+        const { idItem, name, value, stock, stockTotal } = req.body
 
         
-            const item = { idItem, name, value, stock}
+            const item = { idItem, name, value, stock, stockTotal}
 
             const newItem = await itemsModel.create(item)
 
