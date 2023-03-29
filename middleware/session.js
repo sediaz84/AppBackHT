@@ -1,4 +1,4 @@
-const { verifyToken } = require("../helpers/handleJWT");
+const { verifyToken } = require("../utils/handleJwt");
 const { usersModel } = require("../models")
 
 

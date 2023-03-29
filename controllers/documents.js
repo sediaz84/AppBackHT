@@ -41,13 +41,14 @@ const createDocuments = async (req, res) => {
         }     
             //console.log(document.quantityItems.length)
             if(document.quantityItems.length > 0) {
+
                 const stock = document.quantityItems.map(async (e) =>  { 
                    const auxStock = await itemsModel.findById(e.item)                   
-                   //console.log(auxStock.stock)
-                    //console.log(e.quantity)
-                   auxStock.stock = (auxStock.stock - e.quantity)
-                   auxStock.save()
                    console.log(auxStock)
+                    console.log(e.quantity)
+                   auxStock.stock = auxStock.stock - e.quantity
+                   auxStock.save()
+                   //console.log(auxStock)
                 })
                 
             }
