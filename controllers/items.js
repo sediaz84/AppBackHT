@@ -14,10 +14,10 @@ const getItems = async (req, res) => {
 const createItems = async (req, res) => {
     
     try {
-        const { idItem, name, value, stock, stockTotal } = req.body
+        const { idItem, name, description, value, stock, stockTotal } = req.body
 
         
-            const item = { idItem, name, value, stock, stockTotal}
+            const item = { idItem, name, description, value, stock, stockTotal}
 
             const newItem = await itemsModel.create(item)
 
@@ -32,9 +32,9 @@ const updateItems = async (req, res) => {
 
     try {
         const { id } = req.params
-        const { name, value, quantity } = req.body
+        const { name, description, value, quantity } = req.body
 
-        const itemUpdate = { name, value, quantity}
+        const itemUpdate = { name, description, value, quantity}
         if( name || value || quantity ) {
             await itemsModel.findByIdAndUpdate(id, itemUpdate)
             
