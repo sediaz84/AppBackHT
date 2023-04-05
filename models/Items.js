@@ -10,6 +10,9 @@ const ItemsSchema = new mongoose.Schema({
     name: {
         type: String
     },
+    description: {
+        type: String
+    },
     value: {
         type: Number
     },
