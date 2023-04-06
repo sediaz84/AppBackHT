@@ -5,7 +5,7 @@ const DocumentsInSchema = new mongoose.Schema({
     numberDocument: {
         type: Number
     },
-    quntityItems:{
+    quantityItems:{
         type: Array,
         default: []
     },
@@ -24,6 +24,10 @@ const DocumentsInSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref:"documents"
     },
+    client_id: {
+        type: mongoose.Types.ObjectId,
+        ref:"clientes"
+    }    
 },
 {
     timestamps: true
@@ -47,10 +51,19 @@ DocumentsInSchema.statics.findAllDate = function() {
                 as: "document"
             },
         },
+        {
+            $lookup: {
+                from: "clientes",
+                localField: "client_id",
+                foreignField: "_id",
+                as: "client"
+            }
+
+        },
     ]);
     return joinDocumentIn;
 }
 
 DocumentsInSchema.plugin(mongooseDelete, {overrideMethods: "all"})
 
-module.exports = mongoose.model('documentsIn', DocumentsInSchema)
+module.exports = mongoose.model('documents_ins', DocumentsInSchema)

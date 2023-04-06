@@ -5,6 +5,7 @@ const models = {
     usersModel: require('./Users'),
     locationsModel: require('./Locations'),
     clientesModel: require('./Clientes'),
+    documentsInModel: require('./DocumentsIn'),
 }
 
 module.exports = models
