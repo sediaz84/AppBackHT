@@ -55,7 +55,7 @@ const createDocuments = async (req, res) => {
 
             const newDocument = await documentsModel.create(document)
 
-                //console.log(newDocument)
+                console.log(newDocument)
                 res.status(200).json(newDocument)
             //} 
 
