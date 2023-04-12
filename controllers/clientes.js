@@ -1,4 +1,6 @@
 const { clientesModel } = require("../models");
+const { documentsModel } = require("../models");
+
 
 
 // const getClientes = async (req, res) => {
@@ -27,6 +29,8 @@ const getClientes = async (req, res) => {
      // const user = req.user  // esta información viene del middleware de session, no informa que usuario es el que consume
       //console.log(req.user)
       
+      
+      
       const allClients = await clientesModel.find({});
   
       if(allClients.length > 0) {
@@ -34,6 +38,8 @@ const getClientes = async (req, res) => {
       } else {
         res.status(400).send("No hay clientes");
       }
+
+        
     } catch (error) {
       console.log(error);
     }

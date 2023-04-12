@@ -37,7 +37,11 @@ const ClientesSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: true
-    }
+    },
+    documentsClients: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'documents'
+    }]
 }, { 
          timestamps: true
 

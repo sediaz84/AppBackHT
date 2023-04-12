@@ -57,7 +57,7 @@ DocumentsSchema.statics.findAllData = function () {
                 from: "clientes",
                 localField: "client_id",
                 foreignField: "_id",
-                as: "client"
+                as: "cliente"
             }
 
         },

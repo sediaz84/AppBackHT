@@ -1,5 +1,6 @@
 const { documentsInModel } = require('../models');
 const { itemsModel } = require('../models');
+const { documentsModel } = require('../models');
 
 const getDocumentsIn = async (req, res) => {
     //const allDocumentsIn = await documentsInModel.find({})
@@ -43,10 +44,27 @@ const createDocumentsIn = async (req, res) => {
             client_id
         }
 
-        console.log(documentIn)
+        //console.log(documentIn)
 
-        const newDocumentIn = await documentsInModel.create(documentIn)
-        res.status(200).json(newDocumentIn)
+        const documentInCreate = await documentsInModel.create(documentIn)
+
+        if(documentInCreate.quantityItems.length > 0) {
+            const stock = documentInCreate.quantityItems.map(async (e) => {
+                const auxStock = await itemsModel.findById(e.item)
+                auxStock.stock = auxStock.stock + parseInt(e.quantity)
+                auxStock.save()
+            })
+        }
+
+        if(documentInCreate.itemsMissing.length === 0) {
+            const auxState = await documentsModel.findById(document_id)
+            auxState.state = true
+            auxState.save()
+        }
+
+
+
+        res.status(200).json(documentInCreate)
     } catch (error) {
         res.status(400).send(error)
     }
