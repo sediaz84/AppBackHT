@@ -53,10 +53,27 @@ const createDocuments = async (req, res) => {
                 
             }
 
-            const newDocument = await documentsModel.create(document)
+           // console.log(documentCreate)
+           if(documentCreate){
+            const auxClient = await clientesModel.findById(documentCreate.client_id)
+            console.log(auxClient)
+            auxClient.documentsClients.push(documentCreate.client_id)
+            auxClient.save()
+           } 
+           
+           
 
-                console.log(newDocument)
-                res.status(200).json(newDocument)
+
+
+           const newDocument = await documentsModel.findById(documentCreate._id)
+
+
+            res.status(200).json(newDocument)
+            //console.log(newDocument)
+            //console.log(newDocument._id)
+
+
+
             //} 
 
     } catch (error) {
