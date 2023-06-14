@@ -85,6 +85,7 @@ const createUsers = async (req, res) => {
 
     try { //tutorial leifer mendez
         const { name, lastName, pass, userId } = req.body
+              
 
         const password = await encrypt(req.body.pass)
 

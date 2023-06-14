@@ -37,11 +37,41 @@ const ClientesSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: true
+    },
+    documentOut_id: {
+        type: mongoose.Types.ObjectId,
+        ref: "documents"
+    },
+    documentIn_id: {
+        type: mongoose.Types.ObjectId,
+        ref: "documents_ins"
     }
 }, { 
          timestamps: true
 
 })
+
+ClientesSchema.statics.findAllDate = function() {
+    const joinClientes = this.aggregate([
+        {
+            $lookup: {
+                from: "documents",
+                localField: "document_id",
+                foreignField: "_id",
+                as: "document"
+            }
+        },
+        {
+            $lookup: {
+                from: "documents_ins",
+                localField: "documentIn_id",
+                foreignField: "_id",
+                as: "documentIn"
+            }
+        }
+    ]);
+    return joinClientes;
+}
 
 ClientesSchema.plugin(mongooseDelete, {overrideMethods: "all"})
 

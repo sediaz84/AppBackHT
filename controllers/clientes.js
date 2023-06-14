@@ -28,6 +28,10 @@ const getClientes = async (req, res) => {
       //console.log(req.user)
       
       const allClients = await clientesModel.find({});
+    //   const allClientsAndDeleted = await clientesModel.countWithDeleted({});
+      
+    //   console.log(allClientsAndDeleted)      
+      
   
       if(allClients.length > 0) {
         res.status(200).json(allClients); //{allClients, user}
@@ -38,6 +42,15 @@ const getClientes = async (req, res) => {
       console.log(error);
     }
   };
+
+const getClientesId = async (req, res) => {
+    const { id } = req.params
+    let clienteId = await clientesModel.findById({_id: id});
+
+    res.status(200).json(clienteId);
+
+    
+}  
 
 const createCliente = async (req, res) => {
 
@@ -54,7 +67,9 @@ const createCliente = async (req, res) => {
             email,
             contactName,
             notes,
-            active } = req.body
+            active,
+            documentOut_id,
+            documentIn_id } = req.body
 
         const client = {
             idClient,
@@ -67,7 +82,9 @@ const createCliente = async (req, res) => {
             email,
             contactName,
             notes,
-            active
+            active,
+            documentOut_id,
+            documentIn_id
         }
         console.log(client);
 
@@ -133,7 +150,9 @@ const deleteCliente = async (req, res) => {
         const { id } = req.params
 
         if(id){
-        await clientesModel.deleteOne({_id: id})
+        const clienteDelete = await clientesModel.findById({_id: id})
+        clienteDelete.delete()
+        console.log(clienteDelete)
         res.status(200).send("Cliente borrado")
         } else { 
             res.status(400).send("El cliente no pude ser borrado")
@@ -145,6 +164,7 @@ const deleteCliente = async (req, res) => {
 
 module.exports = {
   getClientes,
+  getClientesId,
   createCliente,
   updateCliente,
   deleteCliente,
