@@ -1,6 +1,7 @@
 const { documentsModel, usersModel } = require('../models');
 const { itemsModel } = require('../models');
 const { clientesModel } = require('../models');
+const { populate } = require('../models/Documents');
 
 const getDocuments = async (req, res) => {
 
@@ -23,6 +24,25 @@ const getDocuments = async (req, res) => {
         res.status(400).send("No hay documentos para mostrar")
     }
 
+}
+
+const getDocumentsId = async (req, res) => {    
+    const { id } = req.params
+    console.log(id)
+    const documents = await documentsModel.aggregate([
+        {
+            $lookup: {
+                from: "clientes",
+                localField: "client_id",
+                foreignField: "_id",
+                as: "client_id"
+            }
+        }
+    ])
+    console.log(documents)
+    let documentId = await documentsModel.findById({_id: id}).populate("client_id");
+    console.log(documentId)
+    res.status(200).json(documentId)
 }
 
 const createDocuments = async (req, res) => {
@@ -110,6 +130,7 @@ const deleteDocuments = async (req, res) => {
 
 module.exports = {
     getDocuments,
+    getDocumentsId,
     createDocuments,
     updateDocuments,
     deleteDocuments

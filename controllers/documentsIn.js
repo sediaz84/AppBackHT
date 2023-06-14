@@ -29,7 +29,7 @@ const createDocumentsIn = async (req, res) => {
             quantityItems,
             dateReception,
             itemsMissing,
-            user_id,
+            //user_id,
             document_id,
             client_id
         } = req.body
@@ -39,7 +39,7 @@ const createDocumentsIn = async (req, res) => {
             quantityItems,
             dateReception,
             itemsMissing,
-            user_id,
+            //user_id,
             document_id,
             client_id
         }

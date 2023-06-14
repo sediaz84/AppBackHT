@@ -13,7 +13,7 @@ const authMiddleware = async (req, res, next) => {
         const dataToken = await verifyToken(token)
         //console.log(dataToken._id)
 
-        if(!dataToken._id) return res.status(403).send("Error token")
+        if(!dataToken._id) return res.status(403).send({error})
 
         const user = await usersModel.findById(dataToken._id) // se busca al usuario que hace la petición y/o está consumiendo 
         //console.log(user)
