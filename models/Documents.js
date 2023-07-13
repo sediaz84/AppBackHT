@@ -5,6 +5,9 @@ const DocumentsSchema = new mongoose.Schema({
     numberDocument: {
         type: Number
     },
+    date: {
+        type: String
+    },
     quantityItems:{
         type: Array,
         default: []
@@ -24,6 +27,10 @@ const DocumentsSchema = new mongoose.Schema({
     state: {
         type: Boolean,
         default: false
+    },
+    approved: {
+        type: Boolean,
+        default: false
     },     
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -32,11 +39,7 @@ const DocumentsSchema = new mongoose.Schema({
     client_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"clientes"
-    },
-    items_id: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"items"
-    }],   
+    }       
 },
 {
     timestamps: true

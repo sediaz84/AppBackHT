@@ -12,9 +12,16 @@ const getDocumentsIn = async (req, res) => {
                     localField: "document_id",
                     foreignField: "_id",
                     as: "document_id"
+                },
+                $lookup: {
+                    from: "clientes",
+                    localField: "client_id",
+                    foreignField: "_id",
+                    as: "client_id"
                 }
             }
         ])
+        console.log(allInDocuments)
             const allInDocumentsPopulate = await documentsInModel.populate(allInDocuments, {path:"document_id"})
         res.status(200).send(allInDocumentsPopulate);
     } catch (error) {
