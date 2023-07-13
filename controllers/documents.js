@@ -6,6 +6,16 @@ const { populate } = require('../models/Documents');
 const getDocuments = async (req, res) => {
 
     try {
+
+        const countDocuments = await documentsModel.countWithDeleted()
+       // console.log(countDocuments)
+
+        const countDocuments1 = await documentsModel.countDeleted()
+        //console.log(countDocuments1)
+
+        const countDocuments2 = await documentsModel.count()
+        //console.log(countDocuments2)
+
         const allDocuments = await documentsModel.aggregate([
             {
                 $lookup: {
@@ -39,9 +49,9 @@ const getDocumentsId = async (req, res) => {
             }
         }
     ])
-    console.log(documents)
+    //console.log(documents)
     let documentId = await documentsModel.findById({_id: id}).populate("client_id");
-    console.log(documentId)
+    //console.log(documentId)
     res.status(200).json(documentId)
 }
 
@@ -72,7 +82,7 @@ const createDocuments = async (req, res) => {
             client_id,
             //items_id
         }     
-            //console.log(document.quantityItems.length)
+            //console.log(document)
             
             // const newDocumentClient = await clientesModel.findById(newDocument.client_id)
             // console.log(newDocumentClient)
@@ -96,20 +106,15 @@ const createDocuments = async (req, res) => {
            // console.log(documentCreate)
            if(documentCreate){
             const auxClient = await clientesModel.findById(documentCreate.client_id)
-            console.log(auxClient)
-            auxClient.documentsClients.push(documentCreate.client_id)
+            //console.log(auxClient)
+            auxClient.documentsClients.push(documentCreate._id) 
             auxClient.save()
            } 
-           
-           
-
-
 
            const newDocument = await documentsModel.findById(documentCreate._id)
+           //console.log(newDocument)
 
-
-            res.status(200).json(newDocument)
-            //console.log(newDocument)
+           res.status(200).json(newDocument)
             //console.log(newDocument._id)
 
 
@@ -121,11 +126,46 @@ const createDocuments = async (req, res) => {
     }
     
 }
+
 const updateDocuments = async (req, res) => {
     
+    try {
+        const { addressEvent, dateSend, dateReception, quantityItems } = req.body
+        const { id } = req.params
+        console.log(addressEvent, dateSend, dateReception, quantityItems)
+        
+        const findDocument = await documentsModel.findById({_id: id})
+        //console.log(findDocument)
+
+        addressEvent ? findDocument.addressEvent = addressEvent : findDocument.address;
+        dateSend ? findDocument.dateSend = dateSend : findDocument.dateReception; 
+        dateReception ? findDocument.dateReception = dateReception : findDocument.dateReception;
+        findDocument.quantityItems = quantityItems;
+        findDocument.save();
+
+        res.status(200).send(findDocument)
+
+        
+    } catch (error) {
+        
+    }    
 }
+
 const deleteDocuments = async (req, res) => {
-    
+    try {
+        const { id } = req.params
+
+        if(id){
+            const documentDelete = await documentsModel.findById({_id: id})
+            documentDelete.delete()
+           // console.log(documentDelete)
+            res.status(200).json({message:"Documento eliminado"})
+        } else {
+            res.status(400).send("El documento no pudo ser borrado")
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 module.exports = {
