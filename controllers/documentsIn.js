@@ -29,6 +29,20 @@ const getDocumentsIn = async (req, res) => {
     }
 }
 
+const getInDocumentId = async (req, res) => {
+    try {        
+        const { id } = req.params
+        console.log(id)
+        
+        const inDocumentId = await documentsInModel.findById({_id: id}).populate(["document_id", "client_id"])
+    
+        res.status(200).json(inDocumentId)
+
+    } catch (error) {
+        res.status(404).send("No hay documentos para mostrar")
+    }
+}
+
 const createDocumentsIn = async (req, res) => {
     try {
         const {
@@ -80,5 +94,6 @@ const createDocumentsIn = async (req, res) => {
 
 module.exports = {
     getDocumentsIn,
-    createDocumentsIn
+    createDocumentsIn,
+    getInDocumentId
 }
