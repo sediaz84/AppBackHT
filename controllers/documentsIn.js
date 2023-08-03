@@ -67,6 +67,14 @@ const createDocumentsIn = async (req, res) => {
 
         //console.log(documentIn)
 
+        // const findDocumentId = await documentsInModel.findOne({ "document_id": document_id})
+        // console.log("documento IN" + findDocumentId)
+
+        // if(findDocumentId !== undefined){
+        //     const documentOut = await documentsModel.findById({_id: document_id})
+        //     console.log("documento OUT" + documentOut)
+        // }
+
         const documentInCreate = await documentsInModel.create(documentIn)
 
         if(documentInCreate.quantityItems.length > 0) {
