@@ -32,10 +32,10 @@ const DocumentsSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },     
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"users"
-    },
+    // user_id: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref:"users"
+    // },
     client_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"clientes"

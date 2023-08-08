@@ -67,9 +67,8 @@ const createCliente = async (req, res) => {
             email,
             contactName,
             notes,
-            active,
-            documentOut_id,
-            documentIn_id } = req.body
+            active
+            } = req.body
 
         const client = {
             idClient,
@@ -82,9 +81,7 @@ const createCliente = async (req, res) => {
             email,
             contactName,
             notes,
-            active,
-            documentOut_id,
-            documentIn_id
+            active            
         }
         console.log(client);
 

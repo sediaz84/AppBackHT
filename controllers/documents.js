@@ -66,8 +66,7 @@ const createDocuments = async (req, res) => {
             dateReception, 
             descriptions,
             //user_id,
-            client_id,
-            //items_id 
+            client_id, 
         } = req.body
             
             
@@ -79,8 +78,7 @@ const createDocuments = async (req, res) => {
             dateReception,
             descriptions,
             //user_id,
-            client_id,
-            //items_id
+            client_id            
         }     
             //console.log(document)
             
@@ -101,20 +99,9 @@ const createDocuments = async (req, res) => {
                    //console.log(auxStock)
                 })
                 
-            }
+            }         
 
-           // console.log(documentCreate)
-           if(documentCreate){
-            const auxClient = await clientesModel.findById(documentCreate.client_id)
-            //console.log(auxClient)
-            auxClient.documentsClients.push(documentCreate._id) 
-            auxClient.save()
-           } 
-
-           const newDocument = await documentsModel.findById(documentCreate._id)
-           //console.log(newDocument)
-
-           res.status(200).json(newDocument)
+           res.status(200).json(documentCreate)
             //console.log(newDocument._id)
 
 

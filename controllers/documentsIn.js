@@ -80,6 +80,7 @@ const createDocumentsIn = async (req, res) => {
         if(documentInCreate.quantityItems.length > 0) {
             const stock = documentInCreate.quantityItems.map(async (e) => {
                 const auxStock = await itemsModel.findById(e.item)
+                console.log(auxStock.stock)
                 auxStock.stock = auxStock.stock + parseInt(e.quantity)
                 auxStock.save()
             })
