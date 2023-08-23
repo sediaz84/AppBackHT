@@ -1,4 +1,5 @@
 const { clientesModel } = require("../models");
+const XLSX = require("xlsx")
 
 
 // const getClientes = async (req, res) => {
@@ -67,6 +68,7 @@ const createCliente = async (req, res) => {
             email,
             contactName,
             notes,
+            cuit,
             active
             } = req.body
 
@@ -81,6 +83,7 @@ const createCliente = async (req, res) => {
             email,
             contactName,
             notes,
+            cuit,
             active            
         }
         console.log(client);
@@ -158,6 +161,21 @@ const deleteCliente = async (req, res) => {
         console.log(error)
     }
 };
+
+// const clientCreateMasive = () => {
+//     const excel = XLSX.readFile(
+//         "F:\\Sistemas\\Andy\\back\\exel\\clientes andy modificado.xlsx"              Solo usar para cargas masivas desde un excel
+//     )
+//     let nombreHoja = excel.SheetNames;
+//     let datos = XLSX.utils.sheet_to_json(excel.Sheets[nombreHoja[0]])
+//     console.log(datos)
+
+//     const newClient = datos.map(e =>{
+//          clientesModel.create(e)
+//     })
+    
+// }
+//  clientCreateMasive()
 
 module.exports = {
   getClientes,

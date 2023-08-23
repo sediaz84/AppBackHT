@@ -17,7 +17,7 @@ const ClientesSchema = new mongoose.Schema({
         allowNull: false
     },
     telephoneNumber: {
-        type: Number
+        type: String
     },
     address: {
         type: String
@@ -29,6 +29,9 @@ const ClientesSchema = new mongoose.Schema({
         type: String
     },
     contactName: {
+        type: String
+    },
+    cuit: {
         type: String
     },
     notes: {
