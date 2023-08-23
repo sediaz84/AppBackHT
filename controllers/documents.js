@@ -66,7 +66,8 @@ const createDocuments = async (req, res) => {
             dateReception, 
             descriptions,
             //user_id,
-            client_id, 
+            client_id,
+            note 
         } = req.body
             
             
@@ -78,7 +79,8 @@ const createDocuments = async (req, res) => {
             dateReception,
             descriptions,
             //user_id,
-            client_id            
+            client_id,
+            note            
         }     
             //console.log(document)
             

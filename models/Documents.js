@@ -39,6 +39,9 @@ const DocumentsSchema = new mongoose.Schema({
     client_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"clientes"
+    },
+    notes: {
+        type: String,        
     }       
 },
 {
