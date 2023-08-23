@@ -1,4 +1,5 @@
 const { itemsModel } = require('../models')
+const XLSX = require("xlsx")
 
 const getItems = async (req, res) => {
 
@@ -59,6 +60,21 @@ const deleteItems = async (req, res) => {
         res.status(400).send(error)
     }
 }
+
+// const itemCreateMasive = () => {
+//     const excel = XLSX.readFile(
+//         "F:\\Sistemas\\Andy\\back\\exel\\lista productos andy modificado.xlsx"              //Solo usar para cargas masivas desde un excel
+//     )
+//     let nombreHoja = excel.SheetNames;
+//     let datos = XLSX.utils.sheet_to_json(excel.Sheets[nombreHoja[0]])
+//     console.log(datos)
+
+//     const newItem = datos.map(e =>{
+//          itemsModel.create(e)
+//     })
+    
+// }
+//   itemCreateMasive()
 
 module.exports = {
     getItems,
