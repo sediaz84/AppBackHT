@@ -5,6 +5,7 @@ const getItems = async (req, res) => {
 
     try {
         const allItems = await itemsModel.find({})
+        //console.log(allItems)
         res.status(200).json(allItems)
     } catch (error) {
         res.status(404).send("Sin items")
@@ -19,6 +20,7 @@ const createItems = async (req, res) => {
 
         
             const item = { idItem, name, description, value, stock, stockTotal}
+            //console.log(item)
 
             const newItem = await itemsModel.create(item)
 
@@ -32,14 +34,21 @@ const createItems = async (req, res) => {
 const updateItems = async (req, res) => {
 
     try {
-        const { id } = req.params
-        const { name, description, value, quantity } = req.body
+        //const { id } = req.params
+        const { id, value, stock, stockTotal } = req.body
+        console.log(id)
+        //const itemUpdate = { value, stock, stockTotal}
+        
+        if(id || stock || value ) {
+            const itemPut = await itemsModel.findById({_id: id})
+            console.log(itemPut)
 
-        const itemUpdate = { name, description, value, quantity}
-        if( name || value || quantity ) {
-            await itemsModel.findByIdAndUpdate(id, itemUpdate)
-            
-            res.status(200).json(itemUpdate)
+            itemPut.stock = stock
+            itemPut.stockTotal = stockTotal
+            itemPut.value = value
+            itemPut.save()
+
+            res.status(200).json(itemPut)
         } else {
             res.send("No se pudo actualizar el item")
         }
@@ -74,7 +83,7 @@ const deleteItems = async (req, res) => {
 //     })
     
 // }
-//   itemCreateMasive()
+//    itemCreateMasive()
 
 module.exports = {
     getItems,

@@ -22,9 +22,9 @@ const ItemsSchema = new mongoose.Schema({
     stockTotal: {
         type: Number
     },
-    reserved: {
-        type: Number
-    }    
+    // reserved: {
+    //     type: Number
+    // }    
 },
 {
     timestamps: true

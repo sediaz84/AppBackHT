@@ -4,7 +4,7 @@ const { getItems, createItems, updateItems, deleteItems } = require('../controll
 
 router.get("/", getItems);
 router.post("/", createItems);
-router.put("/:id", updateItems);
+router.post("/modify", updateItems);
 router.delete("/:id", deleteItems);
 
 
