@@ -21,7 +21,7 @@ const getDocumentsIn = async (req, res) => {
                 }
             }
         ])
-        console.log(allInDocuments)
+        //console.log(allInDocuments)
             const allInDocumentsPopulate = await documentsInModel.populate(allInDocuments, {path:"document_id"})
         res.status(200).send(allInDocumentsPopulate);
     } catch (error) {
