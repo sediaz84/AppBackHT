@@ -94,9 +94,9 @@ const createDocuments = async (req, res) => {
 
                 const stock = documentCreate.quantityItems.map(async (e) =>  { 
                    const auxStock = await itemsModel.findById(e.item)                   
-                  // console.log(auxStock)
-                   // console.log(e.quantity)
-                   auxStock.stock = auxStock.stock - e.quantity
+                  console.log(auxStock)
+                   console.log(e.quantity)
+                   auxStock.stock = parseInt(auxStock.stock) - e.quantity
                    auxStock.save()
                    //console.log(auxStock)
                 })
