@@ -29,7 +29,7 @@ const getDocuments = async (req, res) => {
 
         const allDocumentsPopulate = await documentsModel.populate(allDocuments, {path:"client_id"})
 
-        res.status(200).send(allDocumentsPopulate)
+        res.status(200).send([allDocumentsPopulate, countDocuments])
     } catch (error) {
         res.status(400).send("No hay documentos para mostrar")
     }
