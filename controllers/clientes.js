@@ -28,7 +28,7 @@ const getClientes = async (req, res) => {
      // const user = req.user  // esta información viene del middleware de session, no informa que usuario es el que consume
       //console.log(req.user)
       
-      const allClients = await clientesModel.find({});
+      const allClients = await clientesModel.find({}).sort({idClient:1});
     //   const allClientsAndDeleted = await clientesModel.countWithDeleted({});
       
     //   console.log(allClientsAndDeleted)      
