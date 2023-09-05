@@ -158,7 +158,7 @@ const updateDocuments = async (req, res) => {
     });
     
     findDocument.quantityItems.map(async (e) => {
-      let findItem = await document.quantityItems.find(x => x.item === e.item)
+      let findItem = document.quantityItems.find(x => x.item === e.item)
       
       if(!findItem){
         console.log("Wiiiiiiii")
