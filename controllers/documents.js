@@ -151,22 +151,23 @@ const updateDocuments = async (req, res) => {
 
       if (!itemsNew) {
         let stockItem = await itemsModel.findById(e.item);
-        console.log("OKIISSS")
+        //console.log("OKIISSS")
         stockItem.stock = stockItem.stock + parseInt(e.quantity);
         stockItem.save();        
       }
     });
     
-    // quantityItems.map(async (e) => {
-    //   let findItem = await document.quantityItems.find(x => x.item === e.item)
-    //   const stockItem = await itemsModel.findById(e.item);
+    findDocument.quantityItems.map(async (e) => {
+      let findItem = await document.quantityItems.find(x => x.item === e.item)
       
-    //   if(!findItem){
-    //     stockItem.stock = stockItem.stock - parseInt(e.quantity);
-    //     stockItem.save();  
-    //   }
+      if(!findItem){
+        console.log("Wiiiiiiii")
+        const stockItem = await itemsModel.findById(e.item);
+        stockItem.stock = stockItem.stock - parseInt(e.quantity);
+        stockItem.save();  
+      }
       
-    // })
+    })
     
 
     //console.log(findDocument.quantityItems)
