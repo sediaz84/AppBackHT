@@ -113,57 +113,61 @@ const updateDocuments = async (req, res) => {
     let { addressEvent, dateSend, dateReception, quantityItems } = req.body;
     const { id } = req.params;
     //console.log(addressEvent, dateSend, dateReception, quantityItems)
-    const docModify = {
-      addressEvent,
-      dateSend,
-      dateReception,
-      quantityItems,
-    };
+    
     //console.log(docModify)
+
+    let document = await documentsModel.findById(id);
 
     let findDocument = await documentsModel.findById(id);
     // console.log(findDocument.quantityItems)
-
-    //       findDocument.quantityItems.map( (e) => {
-    //   //item D
-    //   let itemsNew = quantityItems.find((x) => x.item === e.item); //item m
-
-    //   const stockItem = async () => await itemsModel.findById(e.item);
-
-    //   if (itemsNew) {
-    //     if (e.quantity > itemsNew.quantity) {
-    //       stockItem.stock = stockItem.stock + (e.quantity - itemsNew.quantity);
-    //       stockItem.save();
-    //     }
-
-    //     if (e.quantity < itemsNew.quantity) {
-    //       stockItem.stock = stockItem.stock - (itemsNew.quantity - e.quantity);
-    //       stockItem.save();
-    //     }
-    //   }
-
-    //   if (!itemsNew) {
-    //     stockItem.stock = stockItem.stock + parseInt(e.quantity);
-    //     stockItem.save();        
-    //   }
-    // });
-    
-    //         quantityItems.map(async (e) => {
-    //     let findItem = await findDocument.quantityItems.find(x => x.item === e.item)
-    //     const stockItem = await itemsModel.findById(e.item);
-
-    //     if(!findItem){
-    //         stockItem.stock = stockItem.stock - parseInt(e.quantity);
-    //         stockItem.save();  
-    //     }
-
-    // })
-    
     addressEvent ? findDocument.addressEvent = addressEvent : findDocument.address;
     dateSend ? findDocument.dateSend = dateSend : findDocument.dateReception;
     dateReception ? findDocument.dateReception = dateReception : findDocument.dateReception;
     findDocument.quantityItems = quantityItems;
     findDocument.save();
+    
+    //console.log(findDocument)
+    //console.log(document)
+
+          document.quantityItems.map( async (e) => {      //item D            
+      let itemsNew = quantityItems.find((x) => x.item === e.item); //item m            
+      // console.log(e)
+      // console.log(itemsNew)
+      if (itemsNew !== undefined) {
+        let stockItem = await itemsModel.findById(e.item);
+        if (e.quantity > itemsNew.quantity) {
+          //console.log("OKKKKKKKKKKKKKKKKKKK")
+          stockItem.stock = stockItem.stock + (e.quantity - itemsNew.quantity);
+          stockItem.save();
+          console.log(stockItem.stock)
+        }
+
+        if (e.quantity < itemsNew.quantity) {          
+          //console.log("OKASSSSSS")
+          stockItem.stock = stockItem.stock - (itemsNew.quantity - e.quantity);
+          stockItem.save();
+        }
+      }
+
+      if (!itemsNew) {
+        let stockItem = await itemsModel.findById(e.item);
+        console.log("OKIISSS")
+        stockItem.stock = stockItem.stock + parseInt(e.quantity);
+        stockItem.save();        
+      }
+    });
+    
+    // quantityItems.map(async (e) => {
+    //   let findItem = await document.quantityItems.find(x => x.item === e.item)
+    //   const stockItem = await itemsModel.findById(e.item);
+      
+    //   if(!findItem){
+    //     stockItem.stock = stockItem.stock - parseInt(e.quantity);
+    //     stockItem.save();  
+    //   }
+      
+    // })
+    
 
     //console.log(findDocument.quantityItems)
 
