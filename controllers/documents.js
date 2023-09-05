@@ -121,44 +121,43 @@ const updateDocuments = async (req, res) => {
     };
     //console.log(docModify)
 
-    let findDocument = await documentsModel.findById({ _id: id });
+    let findDocument = await documentsModel.findById(id);
     // console.log(findDocument.quantityItems)
 
-    const documentMap = findDocument.quantityItems.map(async (e) => {
-      //item D
-      let itemsNew = await quantityItems.find((x) => x.item === e.item); //item m
+    //       findDocument.quantityItems.map( (e) => {
+    //   //item D
+    //   let itemsNew = quantityItems.find((x) => x.item === e.item); //item m
 
-      const stockItem = await itemsModel.findById({ _id: e.item });
+    //   const stockItem = async () => await itemsModel.findById(e.item);
 
-      if (itemsNew) {
-        if (e.quantity > itemsNew.quantity) {
-          stockItem.stock = stockItem.stock + (e.quantity - itemsNew.quantity);
-          stockItem.save();
-        }
+    //   if (itemsNew) {
+    //     if (e.quantity > itemsNew.quantity) {
+    //       stockItem.stock = stockItem.stock + (e.quantity - itemsNew.quantity);
+    //       stockItem.save();
+    //     }
 
-        if (e.quantity < itemsNew.quantity) {
-          stockItem.stock = stockItem.stock - (itemsNew.quantity - e.quantity);
-          stockItem.save();
-        }
-      }
+    //     if (e.quantity < itemsNew.quantity) {
+    //       stockItem.stock = stockItem.stock - (itemsNew.quantity - e.quantity);
+    //       stockItem.save();
+    //     }
+    //   }
 
-      if (!itemsNew) {
-        stockItem.stock = stockItem.stock + parseInt(e.quantity);
-        stockItem.save();        
-      }
-    });
-    console.log(documentMap.item);
+    //   if (!itemsNew) {
+    //     stockItem.stock = stockItem.stock + parseInt(e.quantity);
+    //     stockItem.save();        
+    //   }
+    // });
+    
+    //         quantityItems.map(async (e) => {
+    //     let findItem = await findDocument.quantityItems.find(x => x.item === e.item)
+    //     const stockItem = await itemsModel.findById(e.item);
 
-    const newItem = quantityItems.map(async (e) => {
-        let findItem = await findDocument.quantityItems.find(x => x.item === e.item)
-        const stockItem = await itemsModel.findById({ _id: e.item });
+    //     if(!findItem){
+    //         stockItem.stock = stockItem.stock - parseInt(e.quantity);
+    //         stockItem.save();  
+    //     }
 
-        if(!findItem){
-            stockItem.stock = stockItem.stock - parseInt(e.quantity);
-            stockItem.save();  
-        }
-
-    })
+    // })
     
     addressEvent ? findDocument.addressEvent = addressEvent : findDocument.address;
     dateSend ? findDocument.dateSend = dateSend : findDocument.dateReception;
