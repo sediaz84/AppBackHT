@@ -42,6 +42,9 @@ const DocumentsSchema = new mongoose.Schema({
     },
     notes: {
         type: String,        
+    },
+    notesDelete: {
+        type: String
     }       
 },
 {
