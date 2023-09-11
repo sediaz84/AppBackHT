@@ -181,9 +181,17 @@ const deleteDocuments = async (req, res) => {
     const { id } = req.params;
 
     if (id) {
-      const documentDelete = await documentsModel.findById({ _id: id });
+      let documentDelete = await documentsModel.findById({ _id: id });      
+      //console.log(documentDelete.quantityItems)
+      const stockModify = documentDelete.quantityItems.map( async (e) => {
+        const stockItem = await itemsModel.findById({_id:e.item})
+        console.log(e.quantity)
+        stockItem.stock = stockItem.stock + parseInt(e.quantity)
+        stockItem.save()
+        console.log(stockItem.stock)
+      })
       documentDelete.delete();
-      // console.log(documentDelete)
+      
       res.status(200).json({ message: "Documento eliminado" });
     } else {
       res.status(400).send("El documento no pudo ser borrado");
