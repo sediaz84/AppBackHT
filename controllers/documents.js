@@ -175,7 +175,7 @@ const updateDocuments = async (req, res) => {
     res.status(200).send(findDocument);
   } catch (error) {}
 };
-
+ 
 const deleteDocuments = async (req, res) => {
   try {
     const { id } = req.params;
@@ -191,7 +191,7 @@ const deleteDocuments = async (req, res) => {
         console.log(stockItem.stock)
       })
       documentDelete.delete();
-      
+
       res.status(200).json({ message: "Documento eliminado" });
     } else {
       res.status(400).send("El documento no pudo ser borrado");
