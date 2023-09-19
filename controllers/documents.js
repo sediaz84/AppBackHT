@@ -14,6 +14,8 @@ const getDocuments = async (req, res) => {
     const countDocuments2 = await documentsModel.count();
     //console.log(countDocuments2)
 
+    //const documents = await documentsModel.find({}).sort({numberDocument: -1})
+
     const allDocuments = await documentsModel.aggregate([
       {
         $lookup: {
@@ -25,9 +27,17 @@ const getDocuments = async (req, res) => {
       },
     ]);
 
+    allDocuments.sort((a, b) => {
+      if(a.numberDocument > b.numberDocument){
+        return -1;
+      }      
+    })
+        
     const allDocumentsPopulate = await documentsModel.populate(allDocuments, {
       path: "client_id",
     });
+
+   
 
     res.status(200).send([allDocumentsPopulate, countDocuments]);
   } catch (error) {
