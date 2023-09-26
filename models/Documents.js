@@ -31,7 +31,15 @@ const DocumentsSchema = new mongoose.Schema({
     approved: {
         type: Boolean,
         default: false
-    },     
+    },
+    armado: {
+        type: Boolean,
+        default: false
+    },
+    entregado: {
+        type: Boolean,
+        default: false
+    },    
     // user_id: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref:"users"
