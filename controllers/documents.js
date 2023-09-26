@@ -176,15 +176,17 @@ const updateDocuments = async (req, res) => {
         stockItem.stock = stockItem.stock - parseInt(e.quantity);
         stockItem.save();  
       }
-      
     })
-    
-
     //console.log(findDocument.quantityItems)
 
     res.status(200).send(findDocument);
   } catch (error) {}
 };
+
+const armadoEntregado = async (req, res) => {
+  const {id, armado, entregado} = req.body
+  console.log(id, "- ", armado, "- ", entregado)
+}
  
 const deleteDocuments = async (req, res) => {
   try {
@@ -211,10 +213,24 @@ const deleteDocuments = async (req, res) => {
   }
 };
 
+// const auxArmado = async () => {
+//   let documents = await documentsModel.find({numberDocument: 91})
+//   console.log(documents)
+//   const auxDocuments = documents.map(e => {
+//     if(e.numberDocument === 91){
+//     e.armado = false
+//     e.entregado = false
+//     e.save()
+//     }
+//   })
+// }
+//  auxArmado();
+
 module.exports = {
   getDocuments,
   getDocumentsId,
   createDocuments,
   updateDocuments,
+  armadoEntregado,
   deleteDocuments,
 };
