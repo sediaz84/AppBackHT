@@ -184,8 +184,17 @@ const updateDocuments = async (req, res) => {
 };
 
 const armadoEntregado = async (req, res) => {
-  const {id, armado, entregado} = req.body
-  console.log(id, "- ", armado, "- ", entregado)
+  const {id, armadoAux, entregadoAux} = req.body
+  console.log(id, " ", armadoAux, " ", entregadoAux)
+  
+  let document = await documentsModel.findById(id)
+  //console.log(document)
+  
+    document.armado = armadoAux
+    document.entregado = entregadoAux
+    document.save()
+
+    //console.log(document)
 }
  
 const deleteDocuments = async (req, res) => {
