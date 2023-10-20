@@ -77,7 +77,8 @@ const createDocuments = async (req, res) => {
       descriptions,
       //user_id,
       client_id,
-      note,
+      notes,
+      approved
     } = req.body;
 
     const document = {
@@ -89,9 +90,10 @@ const createDocuments = async (req, res) => {
       descriptions,
       //user_id,
       client_id,
-      note,
+      notes,
+      approved
     };
-    //console.log(document)
+    console.log(approved)
 
     // const newDocumentClient = await clientesModel.findById(newDocument.client_id)
     // console.log(newDocumentClient)
@@ -222,18 +224,18 @@ const deleteDocuments = async (req, res) => {
   }
 };
 
-// const auxArmado = async () => {
-//   let documents = await documentsModel.find({numberDocument: 91})
-//   console.log(documents)
-//   const auxDocuments = documents.map(e => {
-//     if(e.numberDocument === 91){
-//     e.armado = false
-//     e.entregado = false
-//     e.save()
-//     }
-//   })
-// }
-//  auxArmado();
+const auxArmado = async () => {
+  let documents = await documentsModel.find({})
+  console.log(documents)
+  const auxDocuments = documents.map(e => {
+    // if(e. === 91){
+    // e.armado = false
+    e.parcial = false
+    e.save()
+  //  }
+  })
+}
+ // auxArmado();
 
 module.exports = {
   getDocuments,

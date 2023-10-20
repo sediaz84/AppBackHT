@@ -86,9 +86,16 @@ const createDocumentsIn = async (req, res) => {
             })
         }
 
+        if(documentInCreate.itemsMissing.length > 0) {
+            const auxState = await documentsModel.findById(document_id)
+            auxState.parcial = true
+            auxState.save()
+        }
+
         if(documentInCreate.itemsMissing.length === 0) {
             const auxState = await documentsModel.findById(document_id)
             auxState.state = true
+            auxState.parcial = false
             auxState.save()
         }
 
