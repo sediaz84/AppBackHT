@@ -39,6 +39,10 @@ const DocumentsSchema = new mongoose.Schema({
     entregado: {
         type: Boolean,
         default: false
+    },
+    parcial: {
+        type: Boolean,
+        default: false
     },    
     // user_id: {
     //     type: mongoose.Schema.Types.ObjectId,
