@@ -66,6 +66,14 @@ const getDocumentsId = async (req, res) => {
   res.status(200).json(documentId);
 };
 
+const getApproved = async (req, res) => {
+  const docApproved = await documentsModel.find({approved: true, state:false}).populate("client_id")
+  console.log(docApproved)
+
+  res.status(200).json(docApproved)
+}
+
+
 const createDocuments = async (req, res) => {
   try {
     const {
@@ -198,6 +206,18 @@ const armadoEntregado = async (req, res) => {
 
     //console.log(document)
 }
+
+const aprobadoDesaprobado = async (req, res) => {
+   const {aprobado} = req.body
+   const { id } = req.params
+   console.log(id, " ", aprobado)
+
+  let document = await documentsModel.findById(id)
+  console.log(document)
+
+  document.approved = aprobado
+  document.save()
+}
  
 const deleteDocuments = async (req, res) => {
   try {
@@ -224,24 +244,40 @@ const deleteDocuments = async (req, res) => {
   }
 };
 
-const auxArmado = async () => {
-  let documents = await documentsModel.find({})
-  console.log(documents)
-  const auxDocuments = documents.map(e => {
-    // if(e. === 91){
-    // e.armado = false
-    e.parcial = false
-    e.save()
-  //  }
-  })
-}
+// const auxArmado = async () => {
+//   let documents = await documentsModel.find({})
+//   console.log(documents)
+//   const auxDocuments = documents.map(e => {
+//     // if(e. === 91){
+//     // e.armado = false
+//     e.parcial = false
+//     e.save()
+//   //  }
+//   })
+// }
  // auxArmado();
+
+//  const aprobarSaldados = async () => {
+//   let documents = await documentsModel.find({})
+//   console.log(documents)
+//   const auxDocuments = documents.map(e => {
+//     if(e.state === true){
+//     // e.armado = false
+//     e.approved = true
+//     e.save()
+//     }
+//   })
+//  }
+
+ //aprobarSaldados();
 
 module.exports = {
   getDocuments,
   getDocumentsId,
+  getApproved,
   createDocuments,
   updateDocuments,
   armadoEntregado,
+  aprobadoDesaprobado,
   deleteDocuments,
 };
