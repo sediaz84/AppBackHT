@@ -16,10 +16,10 @@ const DocumentsSchema = new mongoose.Schema({
         type: String
     },
     dateSend: {
-        type: String
+        type: Date
     },
     dateReception: {
-        type: String
+        type: Date
     },
     descriptions: {
         type: String
