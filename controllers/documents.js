@@ -1,3 +1,4 @@
+const { format, parse, isValid } = require("date-fns");
 const { documentsModel, usersModel } = require("../models");
 const { itemsModel } = require("../models");
 const { clientesModel } = require("../models");
@@ -68,7 +69,7 @@ const getDocumentsId = async (req, res) => {
 
 const getApproved = async (req, res) => {
   const docApproved = await documentsModel.find({approved: true, state:false}).populate("client_id")
-  console.log(docApproved)
+  //console.log(docApproved)
 
   res.status(200).json(docApproved)
 }
@@ -101,7 +102,7 @@ const createDocuments = async (req, res) => {
       notes,
       approved
     };
-    console.log(approved)
+    //console.log(document)
 
     // const newDocumentClient = await clientesModel.findById(newDocument.client_id)
     // console.log(newDocumentClient)
@@ -270,7 +271,7 @@ const deleteDocuments = async (req, res) => {
 //  }
 
  //aprobarSaldados();
-
+ 
 module.exports = {
   getDocuments,
   getDocumentsId,
