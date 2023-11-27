@@ -68,10 +68,27 @@ const getDocumentsId = async (req, res) => {
 };
 
 const getApproved = async (req, res) => {
-  const docApproved = await documentsModel.find({approved: true, state:false}).populate("client_id")
+  const docApproved = await documentsModel.find({approved: true, armado: false, state:false}).populate("client_id")
   //console.log(docApproved)
 
   res.status(200).json(docApproved)
+}
+
+const getArmado = async (req, res) => {
+  const docApproved = await documentsModel.find({approved: true, armado: true, entregado: false, state:false}).populate("client_id")
+  //console.log(docApproved)
+
+  res.status(200).json(docApproved)
+}
+
+const putArmado = async (req, res) => { //actualiza a un pedido que se armó
+  const { id } = req.params
+  const { numberDocument } = req.body;
+    
+  const armado = await documentsModel.findOne({_id: id})
+  console.log(armado)
+  armado.armado = true;
+  armado.save()
 }
 
 
@@ -160,7 +177,7 @@ const updateDocuments = async (req, res) => {
           //console.log("OKKKKKKKKKKKKKKKKKKK")
           stockItem.stock = stockItem.stock + (e.quantity - itemsNew.quantity);
           stockItem.save();
-          console.log(stockItem.stock)
+          //console.log(stockItem.stock)
         }
 
         if (e.quantity < itemsNew.quantity) {          
@@ -194,9 +211,9 @@ const updateDocuments = async (req, res) => {
   } catch (error) {}
 };
 
-const armadoEntregado = async (req, res) => {
+const armadoEntregado = async (req, res) => { // dar de baja en algun momento
   const {id, armadoAux, entregadoAux} = req.body
-  console.log(id, " ", armadoAux, " ", entregadoAux)
+  //console.log(id, " ", armadoAux, " ", entregadoAux)
   
   let document = await documentsModel.findById(id)
   //console.log(document)
@@ -208,13 +225,13 @@ const armadoEntregado = async (req, res) => {
     //console.log(document)
 }
 
-const aprobadoDesaprobado = async (req, res) => {
+const aprobadoDesaprobado = async (req, res) => { //dar debaja en algun momento
    const {aprobado} = req.body
    const { id } = req.params
    console.log(id, " ", aprobado)
 
   let document = await documentsModel.findById(id)
-  console.log(document)
+  //console.log(document)
 
   document.approved = aprobado
   document.save()
@@ -229,10 +246,10 @@ const deleteDocuments = async (req, res) => {
       //console.log(documentDelete.quantityItems)
       const stockModify = documentDelete.quantityItems.map( async (e) => {
         const stockItem = await itemsModel.findById({_id:e.item})
-        console.log(e.quantity)
+        //console.log(e.quantity)
         stockItem.stock = stockItem.stock + parseInt(e.quantity)
         stockItem.save()
-        console.log(stockItem.stock)
+        //console.log(stockItem.stock)
       })
       documentDelete.delete();
 
@@ -276,9 +293,11 @@ module.exports = {
   getDocuments,
   getDocumentsId,
   getApproved,
+  getArmado,
   createDocuments,
   updateDocuments,
   armadoEntregado,
   aprobadoDesaprobado,
   deleteDocuments,
+  putArmado
 };
