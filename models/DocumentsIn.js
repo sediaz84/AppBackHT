@@ -10,7 +10,7 @@ const DocumentsInSchema = new mongoose.Schema({
         default: []
     },
     dateReception: {
-        type: String
+        type: Date
     },
     itemsMissing: {
         type: Array,
