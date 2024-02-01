@@ -48,7 +48,7 @@ const getDocuments = async (req, res) => {
 
 const getDocumentsId = async (req, res) => {
   const { id } = req.params;
-  //console.log(id)
+  console.log(id)
   const documents = await documentsModel.aggregate([
     {
       $lookup: {
