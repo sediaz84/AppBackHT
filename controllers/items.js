@@ -14,6 +14,13 @@ const getItems = async (req, res) => {
 
 }
 
+const getItemsId = async (req, res) => {
+    const {id} = req.params
+    let itemId = await itemsModel.findById({_id: id})
+
+    res.status(200).json(itemId)
+}
+
 const createItems = async (req, res) => {
     
     try {
@@ -44,8 +51,8 @@ const updateItems = async (req, res) => {
             const itemPut = await itemsModel.findById({_id: id})
             console.log(itemPut)
 
-            itemPut.stock = stock
-            itemPut.stockTotal = stockTotal
+            itemPut.stock = itemPut.stock + parseInt(stock);
+            itemPut.stockTotal = itemPut.stockTotal + parseInt(stockTotal);
             itemPut.value = value
             itemPut.save()
 
@@ -88,6 +95,7 @@ const deleteItems = async (req, res) => {
 
 module.exports = {
     getItems,
+    getItemsId,
     createItems,
     updateItems,
     deleteItems
