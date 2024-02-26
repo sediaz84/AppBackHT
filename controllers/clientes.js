@@ -105,7 +105,6 @@ const updateCliente = async (req, res) => {
     try {
         const { id } = req.params
         const {
-            idClient,
             name,
             lastName,
             nameCompany,
@@ -114,12 +113,10 @@ const updateCliente = async (req, res) => {
             city,
             email,
             contactName,
-            notes,
-            active
+            notes
         } = req.body
 
         const updateClient = {
-            idClient,
             name,
             lastName,
             nameCompany,
@@ -128,12 +125,13 @@ const updateCliente = async (req, res) => {
             city,
             email,
             contactName,
-            notes,
-            active
+            notes
         }
+        console.log(id);
+        console.log(updateClient);
 
-        if (updateClient.length > 0) {
-            await clientesModel.update.findByIdAndUpdate(id, updateClient)
+        if (updateClient) {
+            await clientesModel.findByIdAndUpdate(id, updateClient)
 
             res.status(200).json(updateClient)
         } else {
@@ -176,6 +174,18 @@ const deleteCliente = async (req, res) => {
     
 // }
 //  clientCreateMasive()
+
+const nameCompanyClient = async () => {
+    const aux = await clientesModel.find({});
+    //console.log(aux);
+    const aux1 = aux.map(e=> { 
+       if(e.nameCompany === undefined){
+        e = {...e, nameCompany:""}
+       }
+    })
+}
+
+//nameCompanyClient()
 
 module.exports = {
   getClientes,
