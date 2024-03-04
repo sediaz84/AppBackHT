@@ -22,6 +22,13 @@ const getDocumentsIn = async (req, res) => {
             }
         ])
         //console.log(allInDocuments)
+
+        allInDocuments.sort((a, b) => {
+      if(a.numberDocument > b.numberDocument){
+        return -1;
+      }      
+    })
+
             const allInDocumentsPopulate = await documentsInModel.populate(allInDocuments, {path:"document_id"})
         res.status(200).send(allInDocumentsPopulate);
     } catch (error) {
