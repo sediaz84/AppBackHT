@@ -4,6 +4,8 @@ const { documentsModel } = require('../models');
 
 const getDocumentsIn = async (req, res) => {
     //const allDocumentsIn = await documentsInModel.find({})
+    const countInDocuments = await documentsInModel.countWithDeleted();
+    console.log(countInDocuments)
     try {
         const allInDocuments = await documentsInModel.aggregate([
             {
@@ -30,7 +32,7 @@ const getDocumentsIn = async (req, res) => {
     })
 
             const allInDocumentsPopulate = await documentsInModel.populate(allInDocuments, {path:"document_id"})
-        res.status(200).send(allInDocumentsPopulate);
+        res.status(200).send([allInDocumentsPopulate, countInDocuments]);
     } catch (error) {
         res.status(404).send("No hay documentos para mostrar")
     }
@@ -51,9 +53,11 @@ const getInDocumentId = async (req, res) => {
 }
 
 const createDocumentsIn = async (req, res) => {
+    const countInDocuments = await documentsInModel.count();
+    console.log(countInDocuments)
     try {
         const {
-            numberDocument,
+            //numberDocument,
             quantityItems,
             dateReception,
             itemsMissing,
@@ -63,7 +67,7 @@ const createDocumentsIn = async (req, res) => {
         } = req.body
 
         const documentIn = {
-            numberDocument,
+            numberDocument: countInDocuments + 1,
             quantityItems,
             dateReception,
             itemsMissing,

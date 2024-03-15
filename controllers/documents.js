@@ -7,7 +7,7 @@ const { populate } = require("../models/Documents");
 const getDocuments = async (req, res) => {
   try {
     const countDocuments = await documentsModel.countWithDeleted();
-    // console.log(countDocuments)
+    //console.log(countDocuments)
 
     const countDocuments1 = await documentsModel.countDeleted();
     //console.log(countDocuments1)
@@ -94,8 +94,10 @@ const putArmado = async (req, res) => { //actualiza a un pedido que se armó
 
 const createDocuments = async (req, res) => {
   try {
+    const countDocuments = await documentsModel.countWithDeleted();
+    console.log(countDocuments)
     const {
-      numberDocument,
+      //numberDocument,
       quantityItems,
       addressEvent,
       dateSend,
@@ -108,7 +110,7 @@ const createDocuments = async (req, res) => {
     } = req.body;
 
     const document = {
-      numberDocument,
+      numberDocument: countDocuments + 1,
       quantityItems,
       addressEvent,
       dateSend,
